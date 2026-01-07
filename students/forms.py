@@ -7,6 +7,8 @@ import re
 from django.core.validators import validate_email
 
 class StudentForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
     courses = forms.ModelMultipleChoiceField(
         queryset=Course.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -50,12 +52,11 @@ class StudentForm(forms.ModelForm):
         name = self.cleaned_data.get('name')
         
         
-        if len(name) < 3:
-            raise ValidationError("Name must be at least 3 characters long.")
-
-        
         if not re.match(r'^[a-zA-Z\s]+$', name):
             raise ValidationError("Name should only contain letters and spaces.")
+        
+        if len(name) < 3:
+            raise ValidationError("Name must be at least 3 characters long.")
 
         return name
     
