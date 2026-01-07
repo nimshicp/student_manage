@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% block admin_extra_css %}{% endblock %}
+
+{% endblock %}
+
+{% block content %}
+<div class="admin-wrapper">
+
+    <div class="sidebar-column">
+        <div class="sidebar-card">
+            <div class="sidebar-header">Admin Panel</div>
+            <div class="sidebar-links">
+                <a href="{% url 'dashboard' %}"
+                   class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="{% url 'students:student_list' %}"
+                   class="sidebar-item {% if 'students' in request.resolver_match.namespace %}active{% endif %}">
+                    <i class="fas fa-users"></i> Students
+                </a>
+                <a href="{% url 'courses:course_list' %}"
+                   class="sidebar-item {% if 'courses' in request.resolver_match.namespace %}active{% endif %}">
+                    <i class="fas fa-book"></i> Courses
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="content-column">
+    
+        <div class="admin-content-main">
+            {% block admin_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

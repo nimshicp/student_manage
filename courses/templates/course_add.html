@@ -1,0 +1,179 @@
+{% extends 'admin.html' %}
+
+{% block admin_content %}
+<style>
+/* Form Container */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1.25rem;
+}
+
+/* Form styling */
+form {
+    background: white;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eaeaea;
+}
+
+/* Form paragraphs styling */
+form p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+form p label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+form p input,
+form p textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    background-color: #fdfdfd;
+}
+
+form p input:focus,
+form p textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+/* Textarea specific */
+form p textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Error messages */
+form p .errorlist {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    list-style: none;
+    padding-left: 0;
+}
+
+form p .errorlist li {
+    margin-bottom: 0.25rem;
+}
+
+/* Help text */
+form p .helptext {
+    color: #6c757d;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    display: block;
+    font-style: italic;
+}
+
+/* Form actions */
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eaeaea;
+}
+
+/* Button styling */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid transparent;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(46, 204, 113, 0.2);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.75rem;
+    }
+    
+    form {
+        padding: 1rem;
+    }
+}
+</style>
+
+<div class="container">
+    <h3>{{ title }}</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                Save
+            </button>
+            <a href="{% url 'courses:course_list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const inputs = document.querySelectorAll('form input, form textarea');
+    inputs.forEach(input => {
+        input.style.width = '100%';
+        input.style.padding = '0.5rem 0.75rem';
+        input.style.borderRadius = '6px';
+        input.style.border = '1px solid #ddd';
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'admin.html' %}
+
+{% block admin_content %}
+<h3>Delete Student</h3>
+
+<p>
+    Are you sure you want to delete
+    <strong>{{ student.name }}</strong>?
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a href="{% url 'students:student_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+{% block admin_extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_add.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+
+<div class="form-container">
+
+    
+    <div class="form-header">
+        <h3>{{ title }}</h3>
+    </div>
+
+    <div class="form-card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">
+                    Save
+                </button>
+                <a href="{% url 'students:student_list' %}" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    
+    const paragraphs = document.querySelectorAll('.form-fields p');
+    paragraphs.forEach(p => {
+        p.classList.add('form-paragraph');
+
+        const inputs = p.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.classList.add('form-control');
+        });
+    });
+});
+</script>
+{% endblock %}

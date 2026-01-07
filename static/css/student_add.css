@@ -1,0 +1,123 @@
+
+/* Remove any height restrictions and allow natural flow */
+.admin-content-main {
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Header */
+.form-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.form-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+/* Form Card */
+.form-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom:20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eaeaea;
+}
+
+/* Form Fields */
+.form-fields {
+    height: auto;
+}
+
+/* Form Paragraphs */
+.form-paragraph {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.form-paragraph label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background-color: #fdfdfd;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+/* Textarea */
+textarea.form-control {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Error list */
+.form-paragraph .errorlist {
+    font-size: 0.8rem;
+    color: #e74c3c;
+    margin-top: 0.2rem;
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eaeaea;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(46, 204, 113, 0.2);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #6c757d;
+    color: white;
+}

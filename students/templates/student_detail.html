@@ -1,0 +1,197 @@
+{% extends 'admin.html' %}
+
+{% block admin_content %}
+<style>
+/* Compact styling */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1.25rem;
+}
+
+/* Table styling */
+.table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eaeaea;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid #eaeaea;
+    width: 35%;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.table tr:last-child th,
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Course styling */
+.course-item {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    color: #667eea;
+    padding: 0.3rem 0.6rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    margin-right: 0.3rem;
+    margin-bottom: 0.3rem;
+    border: 1px solid #667eea30;
+}
+
+/* Photo styling */
+.img-thumbnail {
+    border-radius: 6px;
+    border: 2px solid #eaeaea;
+    transition: transform 0.2s ease;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.03);
+}
+
+/* Button styling */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Empty states */
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.75rem;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .table th {
+        width: 40%;
+    }
+    
+    .img-thumbnail {
+        max-width: 100px;
+    }
+}
+</style>
+
+<div class="container">
+    <h3>Student Details</h3>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <td>{{ student.name }}</td>
+        </tr>
+
+        <tr>
+            <th>Roll Number</th>
+            <td><strong>{{ student.roll_no }}</strong></td>
+        </tr>
+
+        <tr>
+            <th>Courses</th>
+            <td>
+                {% for course in student.courses.all %}
+                    <span class="course-item">{{ course.title }}</span>
+                {% empty %}
+                    <span class="text-muted">No course assigned</span>
+                {% endfor %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Email</th>
+            <td>
+                {% if student.email %}
+                    {{ student.email }}
+                {% else %}
+                    <span class="text-muted">No email provided</span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Date of Birth</th>
+            <td>
+                {% if student.date_of_birth %}
+                    {{ student.date_of_birth }}
+                {% else %}
+                    <span class="text-muted">Not specified</span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <th>Photo</th>
+            <td>
+                {% if student.image %}
+                    <img src="{{ student.image.url }}" width="120" class="img-thumbnail">
+                {% else %}
+                    <span class="text-muted">No image</span>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <a href="{% url 'students:student_list' %}" class="btn btn-secondary">
+        Back
+    </a>
+</div>
+{% endblock %}

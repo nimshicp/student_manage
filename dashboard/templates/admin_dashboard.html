@@ -1,0 +1,37 @@
+{% extends 'admin.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block admin_content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome Admin, <strong>{{ request.user.username }}</strong></p>
+
+<div class="row mt-4">
+
+    
+    <div class="col-md-4">
+        <div class="card p-4 shadow-sm text-center">
+            <h5>Total Students</h5>
+            <h2 class="text-primary">{{ total_students }}</h2>
+            <a href="{% url 'students:student_list' %}" class="btn btn-sm btn-outline-primary mt-2">
+                View Students
+            </a>
+        </div>
+    </div>
+
+    
+    <div class="col-md-4">
+        <div class="card p-4 shadow-sm text-center">
+            <h5>Total Courses</h5>
+            <h2 class="text-success">{{ total_courses }}</h2>
+            <a href="{% url 'courses:course_list' %}" class="btn btn-sm btn-outline-success mt-2">
+                View Courses
+            </a>
+        </div>
+    </div>
+
+
+    
+
+</div>
+{% endblock %}

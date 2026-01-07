@@ -1,0 +1,142 @@
+{% extends 'admin.html' %}
+{% load static %}
+{% block admin_extra_css %}
+<link rel="stylesheet" href="{% static 'css/student_list.css' %}">
+{% endblock %}
+
+{% block admin_content %}
+
+
+<div class="student-list-container">
+    
+    <div class="page-header">
+        <h3>Student Management</h3>
+        <a href="{% url 'students:student_add' %}" class="btn btn-primary">
+            ➕ Add Student
+        </a>
+    </div>
+
+    
+    <div class="search-container">
+        <form method="get" class="search-form">
+            <input
+                type="text"
+                name="search"
+                value="{{ request.GET.search }}"
+                class="form-control"
+                placeholder="Search by name"
+            >
+            <button type="submit" class="btn btn-primary">
+                 Search
+            </button>
+
+            {% if request.GET.search %}
+            <a href="{% url 'students:student_list' %}" class="btn btn-secondary">
+                Clear
+            </a>
+            {% endif %}
+        </form>
+    </div>
+
+    
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Name</th>
+                    <th> Roll No</th>
+                    <th> Courses</th>
+                    <th> Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td><strong>{{ student.roll_no }}</strong></td>
+                    <td>
+                        {% for course in student.courses.all %}
+                            <span class="badge">
+                                {{ course.title }}
+                            </span>
+                        {% empty %}
+                            <span class="text-muted">No course assigned</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <div class="btn-action-group">
+                            <a href="{% url 'students:student_edit' student.pk %}"
+                               class="btn btn-sm btn-warning">Edit</a>
+
+                            <a href="{% url 'students:student_delete' student.pk %}"
+                               class="btn btn-sm btn-danger">Delete</a>
+
+                            <a href="{% url 'students:student_detail' student.pk %}"
+                               class="btn btn-sm btn-success">View</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="empty-state">
+                        No students found
+                        {% if request.GET.search %}
+                            <p class="mt-2">Try a different search term</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">
+                   ← Previous
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">← Previous</span>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">
+                           {{ num }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">
+                   Next →
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next →</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

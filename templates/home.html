@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | Student Management{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="home-container">
+    <div class="home-card">
+        <h1>Student Management System</h1>
+        <p>
+            A simple and efficient platform to manage students, courses,
+            and academic records with ease.
+        </p>
+
+        
+       <a href="{% url 'login' %}"
+   class="btn home-btn me-3 "
+   style="background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);border: none;color: #fff; ">Login</a>
+        <a href="{% url 'register'%}" class="btn btn-outline-secondary home-btn">Register</a>
+    </div>
+</div>
+
+{% endblock %}
