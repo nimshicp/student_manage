@@ -9,18 +9,21 @@ from .utils import generate_unique_roll_no
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_profile_and_student(sender, instance, created, **kwargs):
     if not created:
         return
 
+    
     role = 'ADMIN' if instance.is_staff else 'STUDENT'
     UserProfile.objects.create(user=instance, role=role)
 
-
+    
     if role == 'STUDENT':
-        Student.objects.create(
+        Student.objects.get_or_create(
             user=instance,
-            roll_no=generate_unique_roll_no(),
-            name=instance.email.split('@')[0],  
-            email=instance.email,
+            defaults={
+                'roll_no': generate_unique_roll_no(),
+                'name': instance.first_name or '',
+                'email': instance.email,
+            }
         )

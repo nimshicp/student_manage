@@ -42,59 +42,60 @@ def student_add(request):
 
         if form.is_valid():
             email = form.cleaned_data['email'].strip().lower()
+            name = form.cleaned_data['name']
 
+            
             if User.objects.filter(email=email).exists():
-                messages.error(request, "Email already exists.")
-                return render(request, 'student_add.html', {'form': form, 'title': "Add Student"})
+                messages.error(request, "This email already exists.")
+                return render(request, 'student_add.html', {'form': form})
 
             
-            base_name = form.cleaned_data['name'].strip().lower().replace(" ", "")
-            default_password = f"{base_name}@123"
-            user = User.objects.create_user(username=email, email=email, password=default_password)
+            user = User.objects.create(
+                username=email,
+                email=email,
+                first_name=name,
+                is_active=True
+            )
+            user.set_unusable_password()
+            user.save()   
 
             
-            try:
-                student_instance = Student.objects.get(user=user)
-            except Student.DoesNotExist:
-                
-                user.delete()
-                messages.error(request, "System error: Failed to initialize student profile. Please try again.")
-                return render(request, 'student_add.html', {'form': form, 'title': "Add Student"})
-            
-        
-            form = StudentForm(request.POST, request.FILES, instance=student_instance)
-            
-        
-            if form.is_valid():
-                student = form.save() 
-            else:
-                user.delete() 
-                return render(request, 'student_add.html', {'form': form, 'title': "Add Student"})
+            student, _ = Student.objects.get_or_create(user=user)
+            student.name = name
+            student.email = email
+            student.save()
 
             
             try:
                 send_mail(
-                    subject='Student Account Created',
+                    subject='Complete Your Registration',
                     message=(
-                        f"Hi {student.name},\n\n"
-                        f"Your account: {email}\n"
-                        f"Password: {default_password}"
+                        f"Hi {name},\n\n"
+                        f"You have been added to the Student Management System.\n\n"
+                        f"Please register using this email:\n{email}\n\n"
+                        f"After registration, you can log in.\n\n"
+                        f"Thank you."
                     ),
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[email],
                     fail_silently=False,
                 )
             except Exception:
-                messages.warning(request, "Student added, but email failed.")
+                messages.warning(
+                    request,
+                    "Student added, but email could not be sent."
+                )
 
-            messages.success(request, "Student added successfully.")
+            messages.success(
+                request,
+                "Student added successfully. Invitation email sent."
+            )
             return redirect('students:student_list')
 
     else:
         form = StudentForm()
 
-    return render(request, 'student_add.html', {'form': form, 'title': "Add Student"})
-
+    return render(request, 'student_add.html', {'form': form})
 
 
 @login_required

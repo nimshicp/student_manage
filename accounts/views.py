@@ -19,29 +19,30 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
 
-            
+    
             try:
                 send_mail(
-                    subject='Welcome to Student Management System',
+                    subject='Registration Successful',
                     message=(
-                        f"Hi {form.cleaned_data['name']},\n\n"
-                        f"Your account has been created successfully.\n\n"
-                        f"Login Details:\n"
-                        f"Email: {user.email}\n\n"
+                        f"Hi {user.first_name or 'Student'},\n\n"
+                        f"Your account has been activated successfully.\n\n"
                         f"You can now log in using your email and password.\n\n"
-                        f"Thank you!"
+                        f"Thank you."
                     ),
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[user.email],
                     fail_silently=False,
                 )
-            except Exception as e:
+            except Exception:
                 messages.warning(
                     request,
-                    "Account created, but welcome email could not be sent."
+                    "Registered successfully, but confirmation email failed."
                 )
 
-            messages.success(request, "Registration successful. Please log in.")
+            messages.success(
+                request,
+                "Registration successful. You can now log in."
+            )
             return redirect('login')
     else:
         form = RegisterForm()
