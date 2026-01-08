@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-import dj_database_url
+# import os
+# import dj_database_url
 
 
 
@@ -27,9 +27,9 @@ from decouple import config
 SECRET_KEY = config('KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -87,11 +87,16 @@ WSGI_APPLICATION = 'student_manage.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        config('DATABASE_URL'),
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'student_manage',
+        'USER': 'postgres',
+        'PASSWORD': 'nims@123',
+        'HOST': 'localhost',
+        'PORT': '5433',
+    }
 }
+
 
 
 
