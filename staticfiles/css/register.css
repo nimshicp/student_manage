@@ -1,0 +1,226 @@
+
+.home-card-header {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+}
+
+.home-btn {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+    background: linear-gradient(135deg, #3a56d4 0%, #2d0b8c 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+}
+
+.home-link {
+    color: #4361ee;
+}
+
+.home-link:hover {
+    color: #3a0ca3;
+}
+
+.rounded-4 {
+    border-radius: 0.8rem !important;
+}
+
+.form-control:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+.input-group-text {
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control {
+    border-left: 0;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border-radius: 0 0.375rem 0.375rem 0 !important;
+}
+
+.form-control:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+}
+
+.form-control:focus + .input-group-text {
+    border-color: #4361ee;
+}
+
+.btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+}
+
+.card {
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(67, 97, 238, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem !important;
+        
+    }
+    
+    .input-group .form-control,
+    .input-group .input-group-text {
+        padding: 0.5rem 0.65rem;
+    }
+    
+    .col-lg-5 {
+        padding: 0 0.5rem;
+    }
+}
+
+/* Input group styling */
+.input-group:focus-within .input-group-text {
+    background-color: #e9ecef;
+    border-color: #4361ee;
+}
+
+/* Card animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Form styling */
+.form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem !important;
+}
+
+.p-4 {
+    padding: 1.25rem !important;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 4px;
+    margin-top: 2px;
+    background-color: #e9ecef;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-weak {
+    width: 25%;
+    background-color: #dc3545;
+}
+
+.strength-fair {
+    width: 50%;
+    background-color: #fd7e14;
+}
+
+.strength-good {
+    width: 75%;
+    background-color: #ffc107;
+}
+
+.strength-strong {
+    width: 100%;
+    background-color: #198754;
+}
+
+/* Terms checkbox styling */
+.form-check-input:checked {
+    background-color: #4361ee;
+    border-color: #4361ee;
+}
+
+.form-check-input:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+/* Field icons based on field type */
+.fa-user {
+    width: 14px;
+}
+
+.fa-envelope {
+    width: 14px;
+}
+
+.fa-lock {
+    width: 14px;
+}
+
+.fa-user-circle {
+    width: 14px;
+}
+
+
+/* ===============================
+   FIX DJANGO PASSWORD RULES
+   =============================== */
+
+/* Reset Django help text completely */
+.helptext,
+.helptext ul,
+.helptext li {
+    all: unset;
+}
+
+/* Re-style help text cleanly */
+.helptext {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Password rules list */
+.helptext ul {
+    margin: 0.3rem 0 0 1rem;
+    padding: 0;
+}
+
+/* Each rule */
+.helptext li {
+    list-style: disc;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+    color: #6c757d;
+    background: none !important;
+    border: none !important;
+}
+
+/* Prevent alert styles from affecting rules */
+.helptext li::before {
+    content: none !important;
+}
