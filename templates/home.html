@@ -4,7 +4,68 @@
 {% block title %}Home | Student Management{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<style>
+
+     .home-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .home-card {
+        background: white;
+        padding: 50px 40px;
+        border-radius: 15px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-card h1 {
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #2c3e50;
+    }
+
+    .home-card p {
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        margin-bottom: 35px;
+    }
+
+    .home-btn {
+        padding: 12px 30px;
+        font-size: 1.05rem;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+
+  a.btn.home-btn {
+    background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    border: none !important;
+    color: #fff !important;
+    padding: 12px 30px;
+    font-size: 1.05rem;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+a.btn.home-btn:hover {
+    background: linear-gradient(135deg, #3a56d4 0%, #2d0b8c 100%) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+}
+
+
+
+
+</style>
+
 {% endblock %}
 
 {% block content %}
